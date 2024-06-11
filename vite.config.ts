@@ -8,12 +8,21 @@ const patchHtmlStaticVersion = () => {
   return {
     name: 'patch-html-static-version',
     transformIndexHtml(html: string) {
-      return html.replace(
-        /(src|href)="\/assets\/.+"/gi,
+      let result = html.replace(
+        /(src|href)="\/assets/gi,
+        (value) => {
+          return value.replace('/', '')
+        }
+      );
+
+      result = result.replace(
+        /(src|href)="assets\/.+"/gi,
         (value) => {
           return `${value.slice(0, -1)}?v=${clearCache}"`
         }
       )
+
+      return result;
     }
   }
 };
