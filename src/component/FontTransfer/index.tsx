@@ -19,12 +19,12 @@ export const FontTransfer: FC<IFontTransferProps> = ({ target, onChange }) => {
     <Transfer
       style={{
         margin: '0 auto',
-        width: 400,
+        width: 384,
       }}
       showSearch
       pagination
       listStyle={{
-        width: 180,
+        width: 172,
         height: 480,
       }}
       dataSource={fontsSource}

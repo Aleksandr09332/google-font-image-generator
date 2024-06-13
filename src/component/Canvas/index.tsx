@@ -1,6 +1,5 @@
 import { FC, useLayoutEffect, useRef } from 'react';
 import { IFields } from '../FontParams';
-import './index.css';
 
 export interface ICanvasProps extends IFields {
   fonts: string[];
