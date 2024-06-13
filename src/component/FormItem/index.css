@@ -1,0 +1,15 @@
+.form-item {
+	display: flex;
+	margin-bottom: 8px;
+}
+
+.form-item__label {
+	width: 80px;
+	display: flex;
+	align-items: center;
+	padding-right: 8px;
+}
+
+.form-item__children {
+	flex: 1;
+}

@@ -1655,12 +1655,12 @@ export const fontNames: string[] = [
 	"Zilla Slab Highlight:400"
 ];
 
-interface RecordType {
+export interface IRecord {
 	key: string;
 	title: string;
 }
 
-export const fontsSource: RecordType[] = fontNames.map((item) => {
+export const fontsSource: IRecord[] = fontNames.map((item) => {
 	const name: string = item.split(':')[0];
 
 	return {
@@ -1669,4 +1669,4 @@ export const fontsSource: RecordType[] = fontNames.map((item) => {
 	}
 });
 
-export const initialFonts = fontsSource.filter(() => Math.random()*10 < 5).map((item) => item.key);
+export const initialFonts: string[] = fontsSource.filter(() => Math.random()*10 < 5).map((item) => item.key);

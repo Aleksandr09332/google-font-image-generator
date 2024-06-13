@@ -1,0 +1,10 @@
+.form-style {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	margin: 0 auto;
+}
+
+.item-input {
+	width: 100%;
+}

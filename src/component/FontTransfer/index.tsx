@@ -4,12 +4,12 @@ import type { TransferProps } from 'antd';
 import { fontsSource } from '../../config/fonts.ts';
 
 export interface IFontTransferProps {
-  target: TransferProps['targetKeys'];
-  onChange: (target: TransferProps['targetKeys']) => void;
+  target: string[];
+  onChange: (target: string[]) => void;
 }
 
 export const FontTransfer: FC<IFontTransferProps> = ({ target, onChange }) => {
-  const handleChangeTarget: TransferProps['onChange'] = (nextTargetKeys) => {
+  const handleChangeTarget = (nextTargetKeys: string[]) => {
     onChange(nextTargetKeys);
   };
 
@@ -30,7 +30,7 @@ export const FontTransfer: FC<IFontTransferProps> = ({ target, onChange }) => {
       dataSource={fontsSource}
       titles={['Source', 'Target']}
       targetKeys={target}
-      onChange={handleChangeTarget}
+      onChange={handleChangeTarget as TransferProps['onChange']}
       render={(item) => item.title}
     />
   );
