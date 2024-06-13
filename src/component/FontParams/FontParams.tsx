@@ -15,8 +15,6 @@ export const FontParams: FC<IFontStyleProps> = ({ fields, onChange }) => {
     return Number(value.replace(UNIT, ''))
   };
 
-  console.log(fields);
-
   return (
     <div className="form-style">
       <FormItem label="Color">

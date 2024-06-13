@@ -13,8 +13,6 @@ export const FontTransfer: FC<IFontTransferProps> = ({ target, onChange }) => {
     onChange(nextTargetKeys);
   };
 
-  console.log(target);
-
   return (
     <Transfer
       style={{

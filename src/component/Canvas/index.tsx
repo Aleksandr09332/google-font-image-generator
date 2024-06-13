@@ -1,11 +1,13 @@
 import { FC, useLayoutEffect, useRef } from 'react';
 import { IFields } from '../FontParams';
+import { calculatePositionY } from '../../lib';
 
 export interface ICanvasProps extends IFields {
   fonts: string[];
+  onChange: (data: string) => void;
 }
 
-export const Canvas: FC<ICanvasProps> = ({ color, fonts, fontSize, padding }) => {
+export const Canvas: FC<ICanvasProps> = ({ color, fonts, fontSize, padding, onChange }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const indent = 10;
   const width = 300;
@@ -21,12 +23,12 @@ export const Canvas: FC<ICanvasProps> = ({ color, fonts, fontSize, padding }) =>
 
       fonts.forEach((text, index) => {
         context.font = `${fontSize}px "${text}"`;
-        context.fillText(text, indent, index * (fontSize + padding) + padding, width - 2 * indent);
+        context.fillText(text, indent, calculatePositionY(index, fontSize, padding), width - 2 * indent);
       })
-    }
-  }, [color, fonts, fontSize, padding, height]);
 
-  console.log(canvasRef);
+      onChange(canvasRef.current?.toDataURL() ?? '');
+    }
+  }, [color, fonts, fontSize, padding, height, onChange]);
 
   return (
     <canvas ref={canvasRef} width={width} height={height} />
