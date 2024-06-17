@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Transfer } from 'antd';
 import type { TransferProps } from 'antd';
-import { fontsSource } from '../../config/fonts.ts';
+import { fontsSource } from '../../lib';
 
 export interface IFontTransferProps {
   target: string[];
@@ -15,12 +15,12 @@ export const FontTransfer: FC<IFontTransferProps> = ({ target, onChange }) => {
 
   return (
     <Transfer
+      showSearch
+      pagination
       style={{
         margin: '0 auto',
         width: 384,
       }}
-      showSearch
-      pagination
       listStyle={{
         width: 172,
         height: 480,

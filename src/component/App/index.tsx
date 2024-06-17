@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Col, Row } from 'antd';
-import { initialFonts } from '../../config/fonts';
-import { FontLinks } from '../FontLinks';
+import { initialFonts } from '../../lib';
+import { Preloader } from '../Preloader';
 import { FontParams, initialFontStyle, fontParamsEnum } from '../FontParams';
 import type { IFontStyleProps } from '../FontParams';
 import { FontTransfer } from '../FontTransfer';
@@ -20,8 +20,7 @@ const App = () => {
   }
 
   return (
-    <div>
-      <FontLinks />
+    <Preloader>
       <Row>
         <Col className="col" span={24} xl={8} style={{ minWidth: 384 }}>
           <div className="container">
@@ -55,7 +54,7 @@ const App = () => {
           </div>
         </Col>
       </Row>
-    </div>
+    </Preloader>
   );
 }
 
