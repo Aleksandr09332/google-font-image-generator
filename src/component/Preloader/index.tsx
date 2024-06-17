@@ -1,5 +1,6 @@
 import { FC, ReactNode, useState, useEffect, useRef } from 'react';
 import { Flex, Progress } from 'antd';
+import { throttle } from 'lodash-es';
 import { fonts, fontUrl } from '../../config/fonts';
 
 interface IPreloaderProps {
@@ -11,6 +12,10 @@ export const Preloader: FC<IPreloaderProps> = ({ children }) => {
   const [percent, setPercent] = useState(0);
   const count = useRef(0);
 
+  const handleSetPercent = throttle((current: number) => {
+    setPercent(Math.ceil(current/fonts.length * 100));
+  }, 200);
+
   useEffect(() => {
     for (let i = 0; i < fonts.length; i++) {
       const item = fonts[i];
@@ -20,20 +25,20 @@ export const Preloader: FC<IPreloaderProps> = ({ children }) => {
 
       font.load().then(() => {
         count.current += 1;
-        setPercent(Math.ceil(count.current/fonts.length * 100));
+        handleSetPercent(count.current)
       });
     }
 
     document.fonts.ready.then(() => setLoaded(true));
   }, []);
 
-  console.log(Math.ceil(count.current/fonts.length * 100));
+  console.log(percent);
 
   return (
     <div>
       {!loaded && (
         <Flex align="center" justify="center">
-          <Progress type="circle" percent={percent} />
+          <Progress type="circle" percent={percent} style={{ fontFamily: 'sans-serif' }} />
         </Flex>
       )}
       {loaded && children}

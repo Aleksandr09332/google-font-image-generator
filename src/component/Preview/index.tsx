@@ -13,11 +13,13 @@ interface IPreviewProps {
 }
 
 export const Preview: FC<IPreviewProps> = ({ fonts, image, fontSize, padding }) => {
-  const fontNames = fonts.map((fontName) => fontName.toLowerCase().split(' ').join('-'));
-  const options = fonts.map((font, index) => ({
+  const fontNames = fonts
+    .filter((_, item) => item < 50)
+    .map((fontName) => fontName.toLowerCase().split(' ').join('-'));
+  const options = fontNames.map((font) => ({
     label: font,
     value: font,
-    className: fontNames[index],
+    className: font,
   }));
 
   const style = `.select-option {
