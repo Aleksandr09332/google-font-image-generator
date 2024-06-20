@@ -15,6 +15,8 @@ export const Canvas: FC<ICanvasProps> = ({ color, fonts, fontSize, padding, onCh
   const height = fonts.length * (fontSize + padding) + padding;
 
   useLayoutEffect(() => {
+    onChange('');
+
     const context = canvasRef.current?.getContext('2d');
 
     if (context) {

@@ -32,8 +32,6 @@ export const Preloader: FC<IPreloaderProps> = ({ children }) => {
     document.fonts.ready.then(() => setLoaded(true));
   }, []);
 
-  console.log(percent);
-
   return (
     <div>
       {!loaded && (

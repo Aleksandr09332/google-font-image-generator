@@ -20,7 +20,7 @@ export const Export: FC<IExportProps> = ({ image, css }) => {
   return (
     <div>
       <FormItem>
-        <TextArea rows={10} value={cssStyle} />
+        <TextArea rows={20} value={cssStyle} />
       </FormItem>
       <FormItem>
         <Button type="primary" href={image} download={fileName}>Скачать изображение</Button>
