@@ -15,3 +15,7 @@ export const fontsSource: IRecord[] = fonts.map((item) => {
 });
 
 export const initialFonts: string[] = fontsSource.filter(() => Math.random()*10 < 5).map((item) => item.key);
+
+export const getFontClassNames = (fontNames: string[]) => fontNames.map(
+	(fontName) => fontName.toLowerCase().split(' ').join('-')
+);
