@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Select, Space } from 'antd';
+import './index.css'
 
 interface IPreviewProps {
   fontClassNames: string[];
@@ -26,7 +27,8 @@ export const Preview: FC<IPreviewProps> = ({ fontClassNames, css, image }) => {
         {cssStyle}
       </style>
       <Select
-        style={{ width: '100%' }}
+        className="preview-select"
+        popupClassName="preview-popup-select"
         defaultValue={options[0].value}
         options={options}
         optionRender={(option) => (

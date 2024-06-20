@@ -1,0 +1,8 @@
+.preview-select {
+	width: 100%;
+}
+
+.preview-popup-select .ant-select-item-option-content {
+	display: flex;
+	align-items: center;
+}
