@@ -41,7 +41,11 @@ export const Preloader: FC<IPreloaderProps> = ({ children }) => {
           <Progress type="circle" percent={percent} style={{ fontFamily: 'sans-serif' }} />
         </Flex>
       )}
-      {loaded && children}
+      {loaded && (
+        <div style={{ overflow: "hidden" }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };

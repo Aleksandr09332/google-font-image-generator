@@ -1,6 +1,7 @@
 import { FC, useLayoutEffect, useRef } from 'react';
 import { IFields } from '../FontParams';
 import { calculatePositionY } from '../../lib';
+import './index.css';
 
 export interface ICanvasProps extends IFields {
   fonts: string[];
@@ -31,6 +32,6 @@ export const Canvas: FC<ICanvasProps> = ({ color, fonts, fontSize, padding, onCh
   }, [color, fonts, fontSize, padding, height, onChange]);
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} />
+    <canvas ref={canvasRef} width={width} height={height} className="canvas" />
   );
 }

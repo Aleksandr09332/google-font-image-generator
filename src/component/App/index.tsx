@@ -8,6 +8,7 @@ import { FontTransfer } from '../FontTransfer';
 import type { IFontTransferProps } from '../FontTransfer';
 import { Preview } from '../Preview';
 import { Canvas } from '../Canvas';
+import { Section } from '../Section';
 import './index.css';
 
 const App = () => {
@@ -21,37 +22,34 @@ const App = () => {
 
   return (
     <Preloader>
+      <Canvas
+        fonts={fontNames}
+        color={fontParams[fontParamsEnum.COLOR]}
+        fontSize={fontParams[fontParamsEnum.FONT_SIZE]}
+        padding={fontParams[fontParamsEnum.PADDING]}
+        onChange={setImage}
+      />
       <Row>
         <Col className="col" span={24} xl={8} style={{ minWidth: 384 }}>
-          <div className="container">
-            <h2>Settings</h2>
+          <Section title="Settings">
             <FontParams fields={fontParams} onChange={handleChangeFontParams}/>
             <FontTransfer target={fontNames} onChange={setFontNames}/>
-          </div>
+          </Section>
         </Col>
         <Col className="col" span={24} xl={8}>
-          <div className="container">
-            <h2>Preview</h2>
+          <Section title="Preview">
             <Preview
               fonts={fontNames}
               padding={fontParams[fontParamsEnum.PADDING]}
               fontSize={fontParams[fontParamsEnum.FONT_SIZE]}
               image={image}
             />
-            <h2>Export</h2>
-          </div>
+          </Section>
         </Col>
         <Col className="col" span={24} xl={8}>
-          <div className="container">
-            <h2>Example Image</h2>
-            <Canvas
-              fonts={fontNames}
-              color={fontParams[fontParamsEnum.COLOR]}
-              fontSize={fontParams[fontParamsEnum.FONT_SIZE]}
-              padding={fontParams[fontParamsEnum.PADDING]}
-              onChange={setImage}
-            />
-          </div>
+          <Section title="Export">
+            <div></div>
+          </Section>
         </Col>
       </Row>
     </Preloader>
