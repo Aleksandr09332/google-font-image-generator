@@ -4,8 +4,8 @@ import './index.css'
 
 interface IPreviewProps {
   fontClassNames: string[];
-  css: string;
   image: string;
+  css: string;
 }
 
 export const Preview: FC<IPreviewProps> = ({ fontClassNames, css, image }) => {

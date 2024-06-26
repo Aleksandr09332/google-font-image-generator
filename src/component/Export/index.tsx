@@ -5,17 +5,21 @@ import { FormItem } from '../FormItem';
 interface IExportProps {
   image: string;
   css: string;
+  svg: string;
 }
 
 const { TextArea } = Input;
 
-export const Export: FC<IExportProps> = ({ image, css }) => {
-  const fileName = 'font.png';
+export const Export: FC<IExportProps> = ({ image, css, svg }) => {
+  const fileNamePng = 'font.png';
+  const fileNameSvg = 'font.svg';
   const backgroundImage = `.select-option {
-    background-image: url(./${fileName});
+    background-image: url(./${fileNamePng});
   }\n`;
 
   const cssStyle = backgroundImage + css;
+  const svgFile = window.btoa(svg);
+  const svgHref = 'data:image/svg+xml;base64,' + svgFile;
 
   return (
     <div>
@@ -23,7 +27,8 @@ export const Export: FC<IExportProps> = ({ image, css }) => {
         <TextArea rows={20} value={cssStyle} />
       </FormItem>
       <FormItem>
-        <Button type="primary" href={image} download={fileName}>Скачать изображение</Button>
+        <Button type="primary" href={image} download={fileNamePng}>Скачать PNG</Button>
+        <Button type="text" href={svgHref} download={fileNameSvg}>Скачать SVG</Button>
       </FormItem>
     </div>
   );

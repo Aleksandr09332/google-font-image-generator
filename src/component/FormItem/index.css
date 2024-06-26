@@ -10,6 +10,4 @@
 	padding-right: 8px;
 }
 
-.form-item__children {
-	flex: 1;
-}
+.form-item__children {}

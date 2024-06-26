@@ -2,34 +2,64 @@ import { FC, ReactNode, useState, useEffect, useRef } from 'react';
 import { Flex, Progress } from 'antd';
 import { throttle } from 'lodash-es';
 import { fonts, fontUrl } from '../../config/fonts';
+import { runQueue } from '../../lib';
+
+export type TMapFontBuffer = Record<string, ArrayBuffer>;
 
 interface IPreloaderProps {
   children: ReactNode;
+  onLoad: (mapFontBuffer: TMapFontBuffer) => void;
 }
 
-export const Preloader: FC<IPreloaderProps> = ({ children }) => {
+type TFonts = typeof fonts;
+
+export const Preloader: FC<IPreloaderProps> = ({ children, onLoad }) => {
+  const delay = 30;
+  const packetSize = 100;
   const [loaded, setLoaded] = useState(false);
   const [percent, setPercent] = useState(0);
   const count = useRef(0);
 
   const handleSetPercent = throttle((current: number) => {
     setPercent(Math.ceil(current/fonts.length * 100));
-  }, 200);
+  }, delay);
 
   useEffect(() => {
-    for (let i = 0; i < fonts.length; i++) {
-      const item = fonts[i];
-      const font = new FontFace(item.family, `url(${fontUrl}${item.file})`);
+    const getFonts = async (arrayFonts: TFonts) => runQueue({
+      array: arrayFonts,
+      size: packetSize,
+      delay: delay,
+      callback: (fontPack) => {
+        return Promise.all(fontPack.map(async (item) => {
+          const { family, file } = item;
+          const response = await fetch(`${fontUrl}${file}`);
+          const arrayBuffer = await response.arrayBuffer();
+          const font = new FontFace(family, arrayBuffer);
 
-      document.fonts.add(font);
+          document.fonts.add(font);
 
-      font.load().then(() => {
-        count.current += 1;
-        handleSetPercent(count.current)
-      });
-    }
+          font.load().then(() => {
+            count.current += 1;
+            handleSetPercent(count.current)
+          });
 
-    document.fonts.ready.then(() => setLoaded(true));
+          return {
+            family,
+            arrayBuffer
+          }
+        }))
+      },
+    })
+
+    getFonts(fonts).then((array) => {
+      const result: TMapFontBuffer = array.reduce(
+        (previous, current) => ({ ...previous, [current.family]: current.arrayBuffer }),
+        {}
+      );
+
+      onLoad(result);
+      setLoaded(true);
+    });
   }, []);
 
   return (
